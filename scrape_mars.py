@@ -31,9 +31,9 @@ def scrape_mars():
         html = browser.html
         soup = bs(html, "html.parser")
 
-        #a = soup.find('div', class_="list_text")
-        news_title = soup.find('div', class_= "content_title").text
-        news_paragraph = soup.find('div', class_= "rollover_description_inner").text
+        news_title = soup.find('div', class_="content_title").text
+
+        news_paragraph = soup.find('div', class_="article_teaser_body").text
     except:
         news_title = 'abort mission'
         news_paragraph ='abort mission'
@@ -104,7 +104,6 @@ def scrape_mars():
         "hemisphere_image_urls": hemisphere_image_urls,
         "mars_fact_table": mars_fact_table,
     }
-    mars_data['hemisphere_image_urls'] =hemisphere_image_urls
     # Close the browser after scraping
     browser.quit()
 

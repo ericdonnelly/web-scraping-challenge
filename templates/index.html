@@ -11,24 +11,42 @@
 <body>
   <div class="container-fluid">
     <div class="jumbotron text-center">
-      <h1>Visit the...</h1>
-      <p>Craters on mars!! ahhh</p>
+      <h1>Reaching Mars</h1>
+      <p>Mars is waiting</p>
       <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Ready for takeoff...</a></p>
     </div>
-    <h2>Some Data:</h2>
-    <h3>News Title: {{ mars.news_title }}</h3>
-    <h3>News Paragraph: {{ mars.news_paragraph }}</h3>
-    <h4>Featured Mars Image</h4>
-    <img src="{{ mars.featured_image_url }}" width="500" height="275" class="img-responsive">
-    <br><br>
-    {% for hemisphere in mars.hemisphere_image_urls %}
-    <img title="{{ hemisphere.title }}" src="{{ hemisphere.img_url }}" class="img-thumbnail" alt="Mars" width="304" height="236">
-    {% endfor %}
-    <div style="max-width: 450px; max-height: 150px; font-size: 15px; margin-bottom: 400px;">
-        {{ mars.mars_fact_table|safe }}
-    </div>
-  </div>
-  </div>
-</body>
 
-</html>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        crossorigin="anonymous">
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+                <h1>News Title: {{ mars.news_title }}</h1>
+                <h2>News Paragraph: {{ mars.news_paragraph }}</h2>
+                <br><br><br><br><br>
+                <b>Hemispheres:</b><br>
+                {% for hemisphere in mars.hemisphere_image_urls %}
+                {{ hemisphere.title }}<br>
+                {% endfor %}
+            </div>
+            <div class="col-md-4">
+                <h4>Featured Mars Image</h4>
+                <img src="{{ mars.featured_image_url }}" width="500" height="275" class="img-responsive">
+                <br>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                {% for hemisphere in mars.hemisphere_image_urls %}
+                <img title="{{ hemisphere.title }}" src="{{ hemisphere.img_url }}" class="img-thumbnail" alt="Mars" width="304" height="236">
+                {% endfor %}
+            </div>
+            <div class="col-md-4"><br><br><br><br><br><br><br>
+                <div style="max-width: 450px; max-height: 150px; font-size: 15px; margin-bottom: 400px;">
+                    {{ mars.mars_fact_table|safe }}
+                </div>
+            </div>
+        </div>
+    </div>
