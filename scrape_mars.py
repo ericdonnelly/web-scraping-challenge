@@ -52,6 +52,30 @@ def scrape_mars():
         featured_image_url ="https://jpl.nasa.gov"+ featured_image
     except:
         featured_image = 'abort mission'
+#table
+    try:
+        # Visit visitcostarica.herokuapp.com
+        browser.visit(space_fact_url)
+
+        time.sleep(1)
+        html = browser.html
+
+        # Use Panda's `read_html` to parse the url
+        mars_facts = pd.read_html(space_fact_url)
+
+        # find mars df
+        mars_df = mars_facts[0]
+
+        # columns
+        mars_df.columns = ['Description','Value']
+
+        # set columns
+        mars_df.set_index('Description', inplace=True)
+
+        # save to html
+        mars_fact_table = mars_df.to_html()
+    except:
+        featured_image = 'abort mission'
 #hemisphere
     try:
         browser.visit(hemisphere_url)
@@ -78,6 +102,7 @@ def scrape_mars():
         "news_paragraph": news_paragraph,
         "featured_image_url": featured_image_url,
         "hemisphere_image_urls": hemisphere_image_urls,
+        "mars_fact_table": mars_fact_table,
     }
     mars_data['hemisphere_image_urls'] =hemisphere_image_urls
     # Close the browser after scraping
