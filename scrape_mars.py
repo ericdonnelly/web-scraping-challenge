@@ -22,7 +22,7 @@ def scrape_mars():
     browser = init_browser()
 #nasa news url
     try:
-        # Visit visitcostarica.herokuapp.com
+        # Visit url
         browser.visit(nasa_news_url)
 
         time.sleep(1)
@@ -39,7 +39,7 @@ def scrape_mars():
         news_paragraph ='abort mission'
 #space image url
     try:
-        # Visit visitcostarica.herokuapp.com
+        # Visit url
         browser.visit(space_image_url)
 
         time.sleep(1)
@@ -54,7 +54,7 @@ def scrape_mars():
         featured_image = 'abort mission'
 #table
     try:
-        # Visit visitcostarica.herokuapp.com
+        # Visit url
         browser.visit(space_fact_url)
 
         time.sleep(1)
