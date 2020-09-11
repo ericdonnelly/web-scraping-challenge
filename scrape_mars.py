@@ -54,25 +54,21 @@ def scrape_mars():
         featured_image = 'abort mission'
 #hemisphere
     try:
-        img_dict = {}
-        title = result.find("h3").text
-        link = result.find("div", class_="description").a["href"]
-        next_link = base_hemisphere_url + link
-        # Visit visitcostarica.herokuapp.com
-        browser.visit(next_link)
-
+        browser.visit(hemisphere_url)
         time.sleep(1)
-
-        # Scrape page into Soup
         html = browser.html
-        soup = bs(html, "html.parser")
-
-        url = soup.find("img", class_="wide-image")["src"]
-
-        img_dict["title"] = title
-        img_dict["img_url"] = base_hemisphere_url + url
-    
-        hemisphere_image_urls.append(img_dict)
+        soup = bs(html, 'html.parser')
+        items = soup.find_all('div', class_='item')
+        hemisphere_image_urls = []
+        for item in items: 
+            title = item.find('h3').text
+            partial_img_url = item.find('a', class_='itemLink product-item')['href']
+            url = base_hemisphere_url + partial_img_url
+            browser.visit(url)
+            html = browser.html
+            soup = bs( html, 'html.parser')
+            img_url = base_hemisphere_url + soup.find('img', class_='wide-image')['src']
+            hemisphere_image_urls.append({"title" : title, "img_url" : img_url})
     except:
         hemisphere_image_urls = 'abort mission'
 
@@ -83,6 +79,7 @@ def scrape_mars():
         "featured_image_url": featured_image_url,
         "hemisphere_image_urls": hemisphere_image_urls,
     }
+    mars_data['hemisphere_image_urls'] =hemisphere_image_urls
     # Close the browser after scraping
     browser.quit()
 
